@@ -16,7 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Ospry setKey:@"pk-test-c8mwkyk2kbjfisvg6zl0qk0h"];
+    [Ospry setKey:OSPRY_PUBLIC_KEY];
     self.mainVC = [[OSPViewController alloc] initWithNibName:@"OSPViewController" bundle:nil];
     self.navC = [[UINavigationController alloc] initWithRootViewController:self.mainVC];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

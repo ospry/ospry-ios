@@ -16,7 +16,7 @@
 -(void)setUp
 {
     [super setUp];
-    [Ospry setKey:@"pk-test-c8mwkyk2kbjfisvg6zl0qk0h"];
+    [Ospry setKey:OSPRY_PUBLIC_KEY];
     NSBundle *b = [NSBundle bundleForClass:[OspryTests class]];
     self.imagePath = [b pathForResource:@"taxis" ofType:@"jpg"];
 }

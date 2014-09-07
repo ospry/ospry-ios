@@ -34,6 +34,7 @@
 		31A1890A19B963A7002525AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A188F219B963A6002525AC /* UIKit.framework */; };
 		31A1891219B963A7002525AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31A1891019B963A7002525AC /* InfoPlist.strings */; };
 		31A1891419B963A7002525AC /* OspryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A1891319B963A7002525AC /* OspryTests.m */; };
+		31B549DA19BBD06C001D7D4C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B549D919BBD06C001D7D4C /* AssetsLibrary.framework */; };
 		31D6EDD119B965D7005849FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D6EDCA19B965D7005849FA /* main.m */; };
 		31D6EDD219B965D7005849FA /* OSPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D6EDCC19B965D7005849FA /* OSPAppDelegate.m */; };
 		31D6EDD619B96614005849FA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31D6EDD519B96614005849FA /* Images.xcassets */; };
@@ -80,6 +81,7 @@
 		31A1890F19B963A7002525AC /* OspryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OspryTests-Info.plist"; sourceTree = "<group>"; };
 		31A1891119B963A7002525AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		31A1891319B963A7002525AC /* OspryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OspryTests.m; sourceTree = "<group>"; };
+		31B549D919BBD06C001D7D4C /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		31D6EDCA19B965D7005849FA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		31D6EDCB19B965D7005849FA /* OSPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSPAppDelegate.h; sourceTree = "<group>"; };
 		31D6EDCC19B965D7005849FA /* OSPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSPAppDelegate.m; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31B549DA19BBD06C001D7D4C /* AssetsLibrary.framework in Frameworks */,
 				31A188F119B963A6002525AC /* CoreGraphics.framework in Frameworks */,
 				31A188F319B963A6002525AC /* UIKit.framework in Frameworks */,
 				31A188EF19B963A6002525AC /* Foundation.framework in Frameworks */,
@@ -172,6 +175,7 @@
 		31A188ED19B963A6002525AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31B549D919BBD06C001D7D4C /* AssetsLibrary.framework */,
 				31A188EE19B963A6002525AC /* Foundation.framework */,
 				31A188F019B963A6002525AC /* CoreGraphics.framework */,
 				31A188F219B963A6002525AC /* UIKit.framework */,
@@ -528,7 +532,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Ospry-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"OSPRY_PUBLIC_KEY=\\@\\\"$OSPRY_PUBLIC_KEY\\\"",
+				);
 				INFOPLIST_FILE = "Example/Ospry-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -542,7 +552,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Ospry-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"OSPRY_PUBLIC_KEY=\\@\\\"$OSPRY_PUBLIC_KEY\\\"",
+				);
 				INFOPLIST_FILE = "Example/Ospry-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -563,6 +579,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"OSPRY_PUBLIC_KEY=\\@\\\"$OSPRY_PUBLIC_KEY\\\"",
 				);
 				INFOPLIST_FILE = "OspryTests/OspryTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -583,6 +600,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Ospry-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"OSPRY_PUBLIC_KEY=\\@\\\"$OSPRY_PUBLIC_KEY\\\"",
+				);
 				INFOPLIST_FILE = "OspryTests/OspryTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
