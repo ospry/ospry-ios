@@ -11,6 +11,7 @@
 @property (nonatomic) BOOL     isClaimed;
 @property (nonatomic) BOOL     isPrivate;
 @property (nonatomic) NSString *filename;
+@property (nonatomic) NSString *format;
 @property (nonatomic) int64_t  size;
 @property (nonatomic) int      height;
 @property (nonatomic) int      width;

@@ -16,6 +16,7 @@
     [s appendFormat:@"  isClaimed = %@\n", (self.isClaimed ? @"YES" : @"NO")];
     [s appendFormat:@"  isPrivate = %@\n", (self.isPrivate ? @"YES" : @"NO")];
     [s appendFormat:@"  filename = %@\n", self.filename];
+    [s appendFormat:@"  format = %@\n", self.format];
     [s appendFormat:@"  size = %lld\n", self.size];
     [s appendFormat:@"  height = %d\n", self.height];
     [s appendFormat:@"  width = %d\n", self.width];
@@ -33,6 +34,7 @@
     d[@"isClaimed"] = @(self.isClaimed);
     d[@"isPrivate"] = @(self.isPrivate);
     d[@"filename"] = self.filename;
+    d[@"format"] = self.format;
     d[@"size"] = @(self.size);
     d[@"height"] = @(self.height);
     d[@"width"] = @(self.width);
@@ -49,6 +51,7 @@
     m.isClaimed = [json[@"isClaimed"] boolValue];
     m.isPrivate = [json[@"isPrivate"] boolValue];
     m.filename = json[@"filename"];
+    m.format = json[@"format"];
     m.size = [json[@"size"] longLongValue];
     m.height = [json[@"height"] intValue];
     m.width = [json[@"width"] intValue];
