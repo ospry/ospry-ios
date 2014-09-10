@@ -24,7 +24,6 @@
                 isPrivate:(BOOL)isPrivate
                  complete:(OSPMetadataBlock)complete
 {
-    NSLog(@"assetURL = %@", assetURL);
     ALAssetsLibrary *lib = [ALAssetsLibrary new];
     [lib assetForURL:assetURL resultBlock:^(ALAsset *asset) {
 
@@ -92,7 +91,6 @@
                isPrivate:(BOOL)isPrivate
                 complete:(OSPMetadataBlock)complete
 {
-    NSLog(@"filename: %@ => %@", filename, OSPQueryEncode(filename));
     NSString *url = [NSString stringWithFormat:@"%@/images?filename=%@&isPrivate=%@",
                      self.serverURL, OSPQueryEncode(filename), (isPrivate ? @"true" : @"false")];
     NSOutputStream *output = [NSOutputStream outputStreamToMemory];

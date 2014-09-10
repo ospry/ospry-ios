@@ -41,7 +41,7 @@
     self.responseBlock = response;
     self.completeBlock = complete;
     self.output = outputStream;
-    NSLog(@"%@ %@ %@", method, url, contentType);
+    NSLog(@"Ospry: %@ %@", method, url);
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [req setHTTPMethod:method];
     [req setHTTPBodyStream:body];
@@ -58,7 +58,6 @@
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    NSLog(@"connection:didReceiveResponse:");
     self.buffer = [NSMutableData data];
     self.streamIsWaiting = NO;
     [self.output setDelegate:self];
@@ -75,27 +74,21 @@
     self.output = nil;
     if (self.completeBlock != NULL) {
         self.completeBlock();
+        self.completeBlock = NULL;
     }
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    NSLog(@"connection:didReceiveData: %d bytes", (int)[data length]);
     // Add it to the buffer so we can write it to the stream when
     // there is space available.
     [self.buffer appendData:data];
     // If the stream is waiting for data, we need to write it in
     // order for the stream to continue sending events.
     if (self.streamIsWaiting) {
-        NSLog(@"write while stream is waiting");
         const uint8_t *buf = [self.buffer bytes];
         int len = (int)[self.buffer length];
         int n = (int)[self.output write:buf maxLength:len];
-        if (n <= 0) {
-            NSLog(@"zero-size write!");
-        } else {
-            NSLog(@"wrote %d bytes to output stream", n);
-        }
         self.buffer = [NSMutableData dataWithBytes:(buf + n) length:(len - n)];
         self.streamIsWaiting = NO;
     }
@@ -103,15 +96,18 @@
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"connectionDidFinishLoading:");
     // We've received all of the response data, but some of it may
     // still be sitting in the buffer.
     self.conn = nil;
+    // Stream is waiting for more bytes, but there are none left,
+    // so we close the stream.
+    if (self.streamIsWaiting) {
+        [self closeOutput];
+    }
 }
 
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"connection:didFailWithError: %@", error);
     // Call the callback if we haven't called it already.
     if (self.responseBlock != NULL) {
         self.responseBlock(nil, error);
@@ -143,17 +139,13 @@
                 if (self.conn == nil) {
                     [self closeOutput];
                     CFRelease((__bridge CFTypeRef)(self));
+                    break;
                 }
                 self.streamIsWaiting = YES;
                 break;
             }
             const uint8_t *buf = [self.buffer bytes];
             int n = (int)[self.output write:buf maxLength:len];
-            if (n <= 0) {
-                NSLog(@"zero-size write!");
-            } else {
-                NSLog(@"wrote %d bytes to output stream", n);
-            }
             self.buffer = [NSMutableData dataWithBytes:(buf + n) length:(len - n)];
             // Close the stream if there is no more data.
             if (self.conn == nil && [self.buffer length] == 0) {
@@ -164,15 +156,14 @@
         }
         case NSStreamEventErrorOccurred:
         {
-            NSLog(@"output stream error: %@", [stream streamError]);
+            NSLog(@"Ospry: output stream error: %@", [stream streamError]);
+            [self closeOutput];
             [self.conn cancel];
             self.conn = nil;
-            [self closeOutput];
             CFRelease((__bridge CFTypeRef)(self));
             break;
         }
         case NSStreamEventEndEncountered:
-            NSLog(@"output stream end");
             break;
         default:
             break;

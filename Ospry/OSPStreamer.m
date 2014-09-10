@@ -68,7 +68,6 @@
                 // Copy from buffer.
                 const uint8_t *buf = [self.buffer bytes];
                 int n = (int)[self.output write:buf maxLength:left];
-                NSLog(@"wrote %d bytes to asset stream", n);
                 self.buffer = [NSMutableData dataWithBytes:(buf + n) length:(left - n)];
                 return;
             }
@@ -86,7 +85,6 @@
                 [self closeOutput];
                 CFRelease((__bridge CFTypeRef)(self));
             }
-            NSLog(@"wrote %d bytes to asset stream", n);
             self.cursor += n;
             int w = (int)[self.output write:buf maxLength:n];
             // Save anything left over.
@@ -101,7 +99,6 @@
             break;
         }
         case NSStreamEventEndEncountered:
-            NSLog(@"asset output stream end");
             break;
         default:
             break;
